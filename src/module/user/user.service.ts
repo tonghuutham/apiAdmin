@@ -6,24 +6,30 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { JwtPayload } from '../auth/payload.interface';
+import { UserRoles } from './entities/user_roles.entity';
+import { CreateUserRolesDto } from './dto/user-role.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
+    @InjectRepository(UserRoles)
+    private readonly userRolesRepo:Repository<UserRoles>,
   ) {}
   async createAdmin(createUserDto: CreateUserDto) {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
-    console.log('ahihi')
     return this.userRepo.save(createUserDto);
   }
   async create(createUserDto: CreateUserDto) {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
-    console.log('ahihi')
     return this.userRepo.save(createUserDto);
   }
-
+  async updateRole(id:number,user_role_id:number){
+    const user=await this.findOne(id)
+    user.user_role_id=user_role_id;
+    return this.userRepo.save(user);
+  }
   findAll() {
     return this.userRepo.find();
   }
@@ -58,5 +64,11 @@ export class UserService {
     });
     if (!user) throw new HttpException('invalidToken', HttpStatus.UNAUTHORIZED);
     return user;
+  }
+  async createUserRoles(createUserDto: CreateUserRolesDto) {
+    return this.userRolesRepo.save(createUserDto);
+  }
+  removeRole(id: number) {
+    return this.userRolesRepo.delete(id);
   }
 }

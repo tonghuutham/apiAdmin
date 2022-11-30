@@ -12,6 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from '../auth/public.decorator';
+import { CreateUserRolesDto } from './dto/user-role.dto';
 @ApiBearerAuth()
 @ApiTags('User')
 @Controller('user')
@@ -33,7 +34,10 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
-
+  @Patch(':id/:user_role_id')
+  updateRole(@Param('id') id: number,@Param('user_role_id') user_role_id :number){
+    return this.userService.updateRole(id,user_role_id);
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
@@ -47,5 +51,13 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
+  }
+  @Post('/roles')
+  createUserRoles(@Body() createUserDto: CreateUserRolesDto) {
+    return this.userService.createUserRoles(createUserDto);
+  }
+  @Delete('/roles/:id')
+  removeRole(@Param('id') id: string) {
+    return this.userService.removeRole(+id);
   }
 }
