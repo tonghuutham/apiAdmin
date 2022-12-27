@@ -8,6 +8,10 @@ import { User } from './entities/user.entity';
 import { JwtPayload } from '../auth/payload.interface';
 import { UserRoles } from './entities/user_roles.entity';
 import { CreateUserRolesDto } from './dto/user-role.dto';
+import { Permission } from './entities/permissions.entity';
+import { CreatePermissions } from './dto/create-permissions.dto';
+import { CreateRolePermissions } from './dto/create_role_permission.dto';
+import { RolePermissions } from './entities/role_permissions.entity';
 
 @Injectable()
 export class UserService {
@@ -16,6 +20,10 @@ export class UserService {
     private readonly userRepo: Repository<User>,
     @InjectRepository(UserRoles)
     private readonly userRolesRepo:Repository<UserRoles>,
+    @InjectRepository(Permission)
+    private readonly permissionRepo:Repository<Permission>,
+    @InjectRepository(RolePermissions)
+    private readonly rolePermissionRepo:Repository<RolePermissions>,
   ) {}
   async createAdmin(createUserDto: CreateUserDto) {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
@@ -71,4 +79,35 @@ export class UserService {
   removeRole(id: number) {
     return this.userRolesRepo.delete(id);
   }
+  createPermission(permission:CreatePermissions){
+    return this.permissionRepo.save(permission);
+  }
+  getPermission(id:number){
+    return this.permissionRepo.findOne({where:{id:id}})
+  }
+  async updatePermission(id:number,permission:CreatePermissions){
+    console.log('hihi')
+    const per=await this.getPermission(id);
+    console.log(per)
+    if(per){
+      per.name=permission.name;
+      per.description=permission.description;
+    }
+    return this.permissionRepo.save(per);
+}
+ removePermission(id:number){
+  return this.permissionRepo.delete(id);
+ }
+ createRolePermission(rolepermission:CreateRolePermissions){
+  return this.rolePermissionRepo.save(rolepermission);
+}
+async getPermissions(id:number){
+const queryBuilder = this.rolePermissionRepo.createQueryBuilder('role_permissions');
+queryBuilder.leftJoinAndSelect(`role_permissions.permission`, `permissions`);
+queryBuilder.where(`role_permissions.role_id = :id`, { id:id  });
+const material=await queryBuilder.getRawMany();
+console.log('a',queryBuilder.getQuery())
+console.log('ahihi',material)
+return material;
+}
 }

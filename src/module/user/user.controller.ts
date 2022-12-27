@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -13,6 +14,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from '../auth/public.decorator';
 import { CreateUserRolesDto } from './dto/user-role.dto';
+import { CreatePermissions } from './dto/create-permissions.dto';
+import { CreateRolePermissions } from './dto/create_role_permission.dto';
 @ApiBearerAuth()
 @ApiTags('User')
 @Controller('user')
@@ -43,7 +46,7 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
@@ -59,5 +62,28 @@ export class UserController {
   @Delete('/roles/:id')
   removeRole(@Param('id') id: string) {
     return this.userService.removeRole(+id);
+  }
+  @Post('/permissions')
+  createPermission(@Body() permission:CreatePermissions){
+  return this.userService.createPermission(permission);}
+  @Get('/permissions/:id')
+  findOnePer(@Param('id') id: number) {
+    return this.userService.getPermission(id);
+  }
+  @Put('/permissions/:id')
+  updatePermission(@Param('id') id: number, @Body() updatePermission: CreatePermissions) {
+    return this.userService.updatePermission(id,updatePermission);
+  }
+
+  @Delete('/permissions/:id')
+  removePermission(@Param('id') id: number) {
+    return this.userService.removePermission(id);
+  }
+  @Post('/rolepermissions')
+  createRolePermission(@Body() permission:CreateRolePermissions){
+  return this.userService.createRolePermission(permission);}
+  @Get('/rolepermissions/:id')
+  findOnePers(@Param('id') id: number) {
+    return this.userService.getPermissions(id);
   }
 }
