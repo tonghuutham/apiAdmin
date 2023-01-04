@@ -95,8 +95,8 @@ export class UserService {
     }
     return this.permissionRepo.save(per);
 }
- removePermission(id:number){
-  return this.permissionRepo.delete(id);
+ removeRolePermission(id:number){
+  return this.rolePermissionRepo.delete(id);
  }
  createRolePermission(rolepermission:CreateRolePermissions){
   return this.rolePermissionRepo.save(rolepermission);

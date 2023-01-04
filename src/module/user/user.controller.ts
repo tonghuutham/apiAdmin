@@ -75,9 +75,9 @@ export class UserController {
     return this.userService.updatePermission(id,updatePermission);
   }
 
-  @Delete('/permissions/:id')
-  removePermission(@Param('id') id: number) {
-    return this.userService.removePermission(id);
+  @Delete('/rolepermissions/:id')
+  removeRolePermission(@Param('id') id: number) {
+    return this.userService.removeRolePermission(id);
   }
   @Post('/rolepermissions')
   createRolePermission(@Body() permission:CreateRolePermissions){
