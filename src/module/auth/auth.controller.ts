@@ -4,11 +4,11 @@ import { LoginUserDto } from '../user/dto/login-user.dto';
 import { AuthService } from './auth.service';
 import { Public } from './public.decorator';
 @ApiTags('Auth')
-@Controller('api')
+@Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Public()
-  @Post('login')
+  @Post('api/login')
   public async login(@Body() loginUserDto: LoginUserDto) {
     return await this.authService.login(loginUserDto);
   }
