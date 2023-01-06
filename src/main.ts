@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('FoodApi')
+    .setTitle('Api')
     .setDescription('The Food API description')
     .setVersion('1.0.0')
     .addBearerAuth()
