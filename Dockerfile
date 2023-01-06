@@ -14,6 +14,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Creates a "dist" folder with the production build
+RUN rm -rf dist
 RUN npm run build
 
 # Start the server using the production build
