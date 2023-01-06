@@ -18,7 +18,7 @@ import { CreatePermissions } from './dto/create-permissions.dto';
 import { CreateRolePermissions } from './dto/create_role_permission.dto';
 @ApiBearerAuth()
 @ApiTags('User')
-@Controller('user')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Public()
