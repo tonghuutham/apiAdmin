@@ -20,13 +20,13 @@ export class User1661402437884 implements MigrationInterface {
     await queryRunner.query(
       `CREATE TABLE users (
               id int(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
-              name varchar(50) NOT NULL,
-              email varchar(10) NOT NULL,
-              password varchar(100) NOT NULL,
+              name varchar(100) NOT NULL,
+              email varchar(1000) NOT NULL,
+              password varchar(1000) NOT NULL,
               user_role_id int(11) NOT NULL,
               gender int(2) DEFAULT NULL,
               dob date DEFAULT NULL,
-              phoneNumber int(11) DEFAULT NULL,
+              phoneNumber varchar(11) DEFAULT NULL,
               CONSTRAINT FK_user_role FOREIGN KEY (user_role_id) REFERENCES user_roles(id) ON UPDATE CASCADE ON DELETE CASCADE
             )`,
             ) ;
