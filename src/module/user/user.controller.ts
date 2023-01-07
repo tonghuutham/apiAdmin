@@ -70,6 +70,10 @@ export class UserController {
   findOnePer(@Param('id') id: number) {
     return this.userService.getPermission(id);
   }
+  @Get('/permissions')
+  findAllPer(@Param('search') name: string) {
+    return this.userService.getAllPermissions(name);
+  }
   @Put('/permissions/:id')
   updatePermission(@Param('id') id: number, @Body() updatePermission: CreatePermissions) {
     return this.userService.updatePermission(id,updatePermission);
