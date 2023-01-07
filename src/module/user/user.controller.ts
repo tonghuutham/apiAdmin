@@ -55,6 +55,11 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
+  @Get('/roles')
+  getAllRoles() {
+    return this.userService.getAllRoles();
+  }
   @Post('/roles')
   createUserRoles(@Body() createUserDto: CreateUserRolesDto) {
     return this.userService.createUserRoles(createUserDto);

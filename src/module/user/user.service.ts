@@ -76,6 +76,9 @@ export class UserService {
   async createUserRoles(createUserDto: CreateUserRolesDto) {
     return this.userRolesRepo.save(createUserDto);
   }
+  getAllRoles() {
+    return this.userRolesRepo.find();
+  }
   removeRole(id: number) {
     return this.userRolesRepo.delete(id);
   }
