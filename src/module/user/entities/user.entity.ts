@@ -24,6 +24,6 @@ export class User {
   dob:Date;
 
   @Column()
-  phoneNumber:number;
+  phoneNumber:string;
 
 }

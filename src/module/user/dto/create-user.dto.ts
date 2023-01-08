@@ -18,5 +18,5 @@ export class CreateUserDto {
   dob:Date;
 
   @ApiProperty()
-  phoneNumber:number;
+  phoneNumber:string;
 }
