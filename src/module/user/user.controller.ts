@@ -45,6 +45,10 @@ export class UserController {
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
+  @Get('/byname/:name')
+  findName(@Param('name') name: string) {
+    return this.userService.findName(name);
+  }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
@@ -56,7 +60,7 @@ export class UserController {
     return this.userService.remove(+id);
   }
 
-  @Get('/roles')
+  @Get('/roles/get-all')
   getAllRoles() {
     return this.userService.getAllRoles();
   }
@@ -75,9 +79,13 @@ export class UserController {
   findOnePer(@Param('id') id: number) {
     return this.userService.getPermission(id);
   }
-  @Get('/permissions')
-  findAllPer(@Param('search') name: string) {
-    return this.userService.getAllPermissions(name);
+  @Get('/permissions/byname/:name')
+  findOnePerByName(@Param('name') name: string) {
+    return this.userService.getPermissionByName(name);
+  }
+  @Get('/permissions/get/all')
+  findAllPer() {
+    return this.userService.getAllPermissions();
   }
   @Put('/permissions/:id')
   updatePermission(@Param('id') id: number, @Body() updatePermission: CreatePermissions) {
@@ -91,6 +99,7 @@ export class UserController {
   @Post('/rolepermissions')
   createRolePermission(@Body() permission:CreateRolePermissions){
   return this.userService.createRolePermission(permission);}
+
   @Get('/rolepermissions/:id')
   findOnePers(@Param('id') id: number) {
     return this.userService.getPermissions(id);
