@@ -88,11 +88,13 @@ export class UserService {
   getPermission(id:number){
     return this.permissionRepo.findOne({where:{id:id}});
   }
-  getAllPermissions(name:string){
-    return this.permissionRepo.find({where:{name:name}});
+  getPermissionByName(name:string){
+    return this.permissionRepo.findOne({where:{name:name}});
+  }
+  getAllPermissions(){
+    return this.permissionRepo.find();
   }
   async updatePermission(id:number,permission:CreatePermissions){
-    console.log('hihi')
     const per=await this.getPermission(id);
     console.log(per)
     if(per){
