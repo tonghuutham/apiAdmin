@@ -133,8 +133,11 @@ export class UserService {
     }
     return this.permissionRepo.save(per);
   }
-  removeRolePermission(id: number) {
-    return this.rolePermissionRepo.delete(id);
+  async removeRolePermission(per_id: number, role_id) {
+    const rolePermission = await this.rolePermissionRepo.findOne({
+      where: { role_id: role_id, permission_id: per_id },
+    });
+    return this.rolePermissionRepo.delete(rolePermission);
   }
   createRolePermission(rolepermission: CreateRolePermissions) {
     return this.rolePermissionRepo.save(rolepermission);

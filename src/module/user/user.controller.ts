@@ -42,7 +42,7 @@ export class UserController {
   findAllAdmin() {
     return this.userService.findAllAdmin();
   }
-  
+
   @Patch(':id/:user_role_id')
   updateRole(
     @Param('id') id: number,
@@ -105,14 +105,24 @@ export class UserController {
     return this.userService.updatePermission(id, updatePermission);
   }
 
-  @Delete('/rolepermissions/:id')
-  removeRolePermission(@Param('id') id: number) {
-    return this.userService.removeRolePermission(id);
+  @Delete('/rolepermissions/:permission_id/:role_id')
+  removeRolePermission(
+    @Param('permission_id') permission_id: number,
+    @Param('role_id') role_id: number,
+  ) {
+    return this.userService.removeRolePermission(permission_id, role_id);
   }
   @Post('/rolepermissions')
   createRolePermission(@Body() permission: CreateRolePermissions) {
     return this.userService.createRolePermission(permission);
   }
+  // @Post('/rolepermissions/:permission_id/:role_id')
+  // createRolePermission(
+  //   @Param('permission_id') permission_id: number,
+  //   @Param('role_id') role_id: number,
+  // ) {
+  //   return this.userService.createRolePermission(permission_id, role_id);
+  // }
 
   @Get('/rolepermissions/:id')
   findOnePers(@Param('id') id: number) {
