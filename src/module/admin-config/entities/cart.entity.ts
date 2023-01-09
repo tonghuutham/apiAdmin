@@ -6,7 +6,7 @@ export class Cart {
   id: number;
 
   @Column()
-  group: string;
+  group_name: string;
 
   @Column()
   status: number;

@@ -11,4 +11,4 @@ import { Delivery } from './entities/delivery.entity';
   providers: [ConfigService],
   exports: [ConfigService],
 })
-export class ConfigModule {}
+export class AdminConfigModule {}
