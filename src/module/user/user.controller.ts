@@ -37,6 +37,12 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
+
+  @Get('/admin')
+  findAllAdmin() {
+    return this.userService.findAllAdmin();
+  }
+  
   @Patch(':id/:user_role_id')
   updateRole(
     @Param('id') id: number,
