@@ -21,7 +21,7 @@ export class User1661402437884 implements MigrationInterface {
       `CREATE TABLE users (
         id int(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
         name varchar(100) NOT NULL,
-        email varchar(1000) NOT NULL,
+        email varchar(1000) NOT NULL UNIQUE,
         password varchar(1000) NOT NULL,
         user_role_id int(11) NOT NULL,
         gender int(2) DEFAULT NULL,
