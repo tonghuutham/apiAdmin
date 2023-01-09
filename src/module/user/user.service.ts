@@ -76,8 +76,22 @@ export class UserService {
   async createUserRoles(createUserDto: CreateUserRolesDto) {
     return this.userRolesRepo.save(createUserDto);
   }
-  getAllRoles() {
-    return this.userRolesRepo.find();
+  async getAllRolesPer(id:number) {
+    const queryBuilder = this.userRolesRepo.createQueryBuilder('user_roles');
+    queryBuilder.where(`user_roles.id = :id`, { id:id  });
+queryBuilder.leftJoinAndSelect(`user_roles.listRecipe`, `role_permissions`);
+const material=await queryBuilder.getRawMany();
+if (material[0].role_permissions_permission_id===null) return null;
+const result=await Promise.all(material.map( (i)=> i['permissions']=  this.getPermission(i.role_permissions_permission_id)))  
+return result;
+  }
+  async getAllRoles() {
+    var count=0;
+    const role=await this.userRolesRepo.find()
+    const result=await Promise.all(role.map( (i)=> i['permissions']=  this.getAllRolesPer(i.id)))
+    role.forEach((i)=> i['permissions']=  result[count++])
+      // i['permissions']=   await this.getAllRolesPer(i.id)
+    return role;
   }
   removeRole(id: number) {
     return this.userRolesRepo.delete(id);
