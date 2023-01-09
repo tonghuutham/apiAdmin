@@ -39,12 +39,12 @@ export class UserService {
     return this.userRepo.save(user);
   }
   findAll() {
-    return this.userRepo.find({ where: { user_role_id: 2 } });
+    return this.userRepo.find();
   }
 
-  findAllAdmin() {
-    return this.userRepo.find({ where: { user_role_id: Not(2) } });
-  }
+  // findAllAdmin() {
+  //   return this.userRepo.find({ where: { user_role_id: Not(2) } });
+  // }
 
   async findOne(id: number): Promise<User> {
     return await this.userRepo.findOne({

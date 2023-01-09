@@ -38,10 +38,10 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get('/admin')
-  findAllAdmin() {
-    return this.userService.findAllAdmin();
-  }
+  // @Get('/admin')
+  // findAllAdmin() {
+  //   return this.userService.findAllAdmin();
+  // }
 
   @Patch(':id/:user_role_id')
   updateRole(
