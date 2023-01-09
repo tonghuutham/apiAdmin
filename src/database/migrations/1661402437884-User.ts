@@ -3,6 +3,24 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class User1661402437884 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
+      `CREATE TABLE delivery (
+        id int(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        group_name varchar(255) NOT NULL,
+        status int(10),
+        created_at timestamp NULL DEFAULT NULL,
+        updated_at timestamp NULL DEFAULT NULL
+      )`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE cart (
+        id int(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        group_name varchar(255) NOT NULL,
+        status int(10),
+        created_at timestamp NULL DEFAULT NULL,
+        updated_at timestamp NULL DEFAULT NULL
+      )`,
+    );
+    await queryRunner.query(
       `CREATE TABLE permissions (
         id int(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
         name varchar(10) NOT NULL,

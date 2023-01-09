@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Api')
-    .setDescription('The Food API description')
+    .setDescription('API description')
     .setVersion('1.0.0')
     .addBearerAuth()
     .build();
