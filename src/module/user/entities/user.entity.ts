@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { type } from 'os';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Permission } from './permissions.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -13,17 +22,30 @@ export class User {
 
   @Column()
   password: string;
-  
-  @Column()
-  user_role_id:number;
 
   @Column()
-  gender:number;
+  user_role_id: number;
 
   @Column()
-  dob:Date;
+  gender: number;
 
   @Column()
-  phoneNumber:string;
+  dob: Date;
 
+  @Column()
+  phoneNumber: string;
+
+  @ManyToMany(() => Permission)
+  @JoinTable({
+    name: 'role_permissions',
+    joinColumn: {
+      name: 'role_id',
+      referencedColumnName: 'user_role_id',
+    },
+    inverseJoinColumn: {
+      name: 'permission_id',
+      referencedColumnName: 'id',
+    },
+  })
+  permissions: Permission[];
 }

@@ -24,13 +24,13 @@ export class UserController {
   @Public()
   @Post('/admin')
   createAdmin(@Body() createUserDto: CreateUserDto) {
-    createUserDto.user_role_id=1;
+    createUserDto.user_role_id = 1;
     return this.userService.create(createUserDto);
   }
   @Public()
   @Post('/user')
   create(@Body() createUserDto: CreateUserDto) {
-    createUserDto.user_role_id=2;
+    createUserDto.user_role_id = 2;
     return this.userService.create(createUserDto);
   }
   @Get()
@@ -38,8 +38,11 @@ export class UserController {
     return this.userService.findAll();
   }
   @Patch(':id/:user_role_id')
-  updateRole(@Param('id') id: number,@Param('user_role_id') user_role_id :number){
-    return this.userService.updateRole(id,user_role_id);
+  updateRole(
+    @Param('id') id: number,
+    @Param('user_role_id') user_role_id: number,
+  ) {
+    return this.userService.updateRole(id, user_role_id);
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -73,8 +76,9 @@ export class UserController {
     return this.userService.removeRole(+id);
   }
   @Post('/permissions')
-  createPermission(@Body() permission:CreatePermissions){
-  return this.userService.createPermission(permission);}
+  createPermission(@Body() permission: CreatePermissions) {
+    return this.userService.createPermission(permission);
+  }
   @Get('/permissions/:id')
   findOnePer(@Param('id') id: number) {
     return this.userService.getPermission(id);
@@ -88,8 +92,11 @@ export class UserController {
     return this.userService.getAllPermissions();
   }
   @Put('/permissions/:id')
-  updatePermission(@Param('id') id: number, @Body() updatePermission: CreatePermissions) {
-    return this.userService.updatePermission(id,updatePermission);
+  updatePermission(
+    @Param('id') id: number,
+    @Body() updatePermission: CreatePermissions,
+  ) {
+    return this.userService.updatePermission(id, updatePermission);
   }
 
   @Delete('/rolepermissions/:id')
@@ -97,8 +104,9 @@ export class UserController {
     return this.userService.removeRolePermission(id);
   }
   @Post('/rolepermissions')
-  createRolePermission(@Body() permission:CreateRolePermissions){
-  return this.userService.createRolePermission(permission);}
+  createRolePermission(@Body() permission: CreateRolePermissions) {
+    return this.userService.createRolePermission(permission);
+  }
 
   @Get('/rolepermissions/:id')
   findOnePers(@Param('id') id: number) {
