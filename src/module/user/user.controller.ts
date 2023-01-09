@@ -16,6 +16,7 @@ import { Public } from '../auth/public.decorator';
 import { CreateUserRolesDto } from './dto/user-role.dto';
 import { CreatePermissions } from './dto/create-permissions.dto';
 import { CreateRolePermissions } from './dto/create_role_permission.dto';
+import { UpdateRoleDto } from './dto/update-role.dto';
 @ApiBearerAuth()
 @ApiTags('User')
 @Controller('api/user')
@@ -76,6 +77,10 @@ export class UserController {
   @Post('/roles')
   createUserRoles(@Body() createUserDto: CreateUserRolesDto) {
     return this.userService.createUserRoles(createUserDto);
+  }
+  @Put('/roles/:id')
+  updateRoles(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
+    return this.userService.updateRoleName(+id, updateRoleDto);
   }
   @Delete('/roles/:id')
   removeRole(@Param('id') id: string) {

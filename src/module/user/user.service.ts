@@ -12,6 +12,7 @@ import { Permission } from './entities/permissions.entity';
 import { CreatePermissions } from './dto/create-permissions.dto';
 import { CreateRolePermissions } from './dto/create_role_permission.dto';
 import { RolePermissions } from './entities/role_permissions.entity';
+import { UpdateRoleDto } from './dto/update-role.dto';
 
 @Injectable()
 export class UserService {
@@ -83,6 +84,15 @@ export class UserService {
   async createUserRoles(createUserDto: CreateUserRolesDto) {
     return this.userRolesRepo.save(createUserDto);
   }
+
+  updateRoleName(id: number, updateRoleDto: UpdateRoleDto) {
+    if (this.userRolesRepo.findOne({ where: { id: id } })) {
+      updateRoleDto.id = id;
+      return this.userRolesRepo.save(updateRoleDto);
+    }
+    return 'role not found';
+  }
+
   async getAllRolesPer(id: number) {
     const queryBuilder = this.userRolesRepo.createQueryBuilder('user_roles');
     queryBuilder.where(`user_roles.id = :id`, { id: id });
