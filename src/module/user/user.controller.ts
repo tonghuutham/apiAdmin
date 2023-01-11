@@ -34,6 +34,7 @@ export class UserController {
     createUserDto.user_role_id = 2;
     return this.userService.create(createUserDto);
   }
+  @Public()
   @Get()
   findAll() {
     return this.userService.findAll();
