@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Like, Not, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -54,7 +54,7 @@ export class UserService {
     });
   }
   findName(name: string) {
-    return this.userRepo.findOne({ where: { name: `%${name}%` } });
+    return this.userRepo.find({ where: { name: Like(`%${name}%`) } });
   }
   async login(email: string) {
     const user = await this.userRepo.findOne({ where: { email: email } });
