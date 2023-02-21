@@ -18,19 +18,25 @@ export class ConfigService {
     return this.deliveryRepo.findOne({ where: { status: 1 } });
   }
 
-  updateDelivery(id: number, updateDeliveryDto: UpdateDeliveryDto) {
-    updateDeliveryDto.id = id;
-    console.log(updateDeliveryDto);
-    return this.deliveryRepo.save(updateDeliveryDto);
+  async updateDelivery(id: number, updateDeliveryDto: UpdateDeliveryDto) {
+    const delivery=await this.deliveryRepo.findOne({ where: { id: id } });
+    if (delivery===null){
+      return 'khong ton tai';
+    }
+    delivery.status=updateDeliveryDto.status;
+    return this.deliveryRepo.save(delivery);
   }
 
   cart() {
     return this.cartRepo.findOne({ where: { status: 1 } });
   }
 
-  updateCart(id: number, updateCartDto: UpdateCartDto) {
-    updateCartDto.id = id;
-    console.log(UpdateCartDto);
-    return this.cartRepo.save(updateCartDto);
+  async updateCart(id: number, updateCartDto: UpdateCartDto) {
+    const cart=await this.cartRepo.findOne({ where: { id: id } });
+    if (cart===null){
+      return 'khong ton tai';
+    }
+    cart.status=updateCartDto.status;
+    return this.cartRepo.save(cart);
   }
 }

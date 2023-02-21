@@ -39,13 +39,13 @@ export class User1661402437884 implements MigrationInterface {
       `CREATE TABLE users (
         id int(10) AUTO_INCREMENT PRIMARY KEY NOT NULL,
         name varchar(100) NOT NULL,
-        email varchar(1000) NOT NULL UNIQUE,
-        password varchar(1000) NOT NULL,
+        email varchar(100) NOT NULL UNIQUE,
+        password varchar(100) NOT NULL,
         user_role_id int(11) NOT NULL,
         gender int(2) DEFAULT NULL,
         dob date DEFAULT NULL,
         phoneNumber varchar(11) DEFAULT NULL,
-        CONSTRAINT FK_user_role FOREIGN KEY (user_role_id) REFERENCES user_roles(id) ON UPDACASCADE ON DELETE CASCADE
+        CONSTRAINT FK_user_role FOREIGN KEY (user_role_id) REFERENCES user_roles(id) ON UPDATE CASCADE ON DELETE CASCADE
       )`,
     );
     await queryRunner.query(
@@ -64,6 +64,8 @@ export class User1661402437884 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TABLE delivery;`);
+    await queryRunner.query(`DROP TABLE cart;`);
     await queryRunner.query(`DROP TABLE role_permissions;`);
     await queryRunner.query(`DROP TABLE users;`);
     await queryRunner.query(`DROP TABLE user_roles;`);
